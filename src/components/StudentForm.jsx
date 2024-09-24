@@ -4,72 +4,134 @@ import {
   Box,
   TextField,
   Select,
-  MenuItem
+  MenuItem,
 } from "@mui/material";
 import { useState } from "react";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 const StudentForm = () => {
-    const [name, setName]= useState("");
-    const [password, setPassword]= useState();
-    const [roll, setRoll]=useState();
-    const[class, setClass]=useState("");
-    const[date, setDate]=useState();
-    const [gender, setGender] = useState("Male");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [roll, setRoll] = useState("");
+  const [stclass, setStclass] = useState("");
+  const [date, setDate] = useState();
+  const [gender, setGender] = useState("male");
 
-
-    function handleSubmit(e){
-        e.preventDefault();
-        console.log(gender);
-    }
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(gender, name, password, roll, stclass, date);
+  }
   return (
     <form onSubmit={handleSubmit}>
       <h1>Student info:</h1>
-        <Box display="flex"
-        flexDirection="column"
-        gap={2}
-        sx={{ width: "450px", mt: 5 }}>
+      <Box display="flex" flexDirection="column" sx={{ width: "450px", mt: 3 }}>
+        <FormGroup gap={3} sx={{ width: "450px", mt: 0 }}>
+          <TextField
+            label="Username"
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
+            fullWidth
+          />
 
-      <FormGroup>
-        <TextField label="Username" onChange={(e) => {
-            setName(e.target.value);
-          }}
-          fullWidth/>
+          <TextField
+            sx={{ mt: 1 }}
+            type="password"
+            label="Password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            fullWidth
+          />
 
-        <TextField type="password" label="Password"
-        onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-          fullWidth/>
+          <TextField
+            sx={{ mt: 1 }}
+            label="Roll number"
+            value={roll}
+            onChange={(e) => {
+              setRoll(e.target.value);
+            }}
+            fullWidth
+          />
 
-        <TextField label="Roll number"/>
+          <TextField
+            sx={{ mt: 1 }}
+            label="Class"
+            value={stclass}
+            onChange={(e) => {
+              setStclass(e.target.value);
+            }}
+            fullWidth
+          />
 
-        <TextField label="Class"/>
+          {/* <select>
+            {setStclass.form({length:20}, (_, i) => i+1).map((stclass.value) =(
+                <option value={stclass} key={stclass}>
+                    {stclass}
+                </option>
+            ))}
+          </select> */}
 
-        <TextField label="Exam date"/>
+          {/* <TextField
+            sx={{ mt: 1 }}
+            label="Exam date"
+            value={date}
+            onChange={(e) => {
+              setDate(e.target.value);
+            }}
+            fullWidth
 
-        <Select label="Gender" 
-        value={gender}
-        onChange={(e)=>{
-            setGender(e.target.value);
-        }}
-        fullWidth
-        >
-          <MenuItem type="radio" name="male" value="male">
-            Male
-          </MenuItem>
-          <MenuItem type="radio" name="female" value="female">
-            Female
-          </MenuItem>
-          <MenuItem type="radio" name="otherr" value="other">
-            Other
-          </MenuItem>
-        </Select>
+          /> */}
 
-        <Button variant="contained" color="secondary">
-          Submit
-        </Button>
-      </FormGroup>
-        </Box>
+          <LocalizationProvider
+            dateAdapter={AdapterDayjs}
+            value={date}
+            fullWidth
+          >
+            <DatePicker
+              sx={{ mt: 1 }}
+              label="Exam Date"
+              value={date}
+              onChange={(newDate) => {
+                setDate(newDate);
+              }}
+            />
+          </LocalizationProvider>
+
+          <Select
+            label="Gender"
+            sx={{ mt: 1 }}
+            value={gender}
+            onChange={(e) => {
+              setGender(e.target.value);
+            }}
+            fullWidth
+          >
+            <MenuItem type="radio" name="male" value="male">
+              Male
+            </MenuItem>
+            <MenuItem type="radio" name="female" value="female">
+              Female
+            </MenuItem>
+            <MenuItem type="radio" name="otherr" value="other">
+              Other
+            </MenuItem>
+          </Select>
+
+          <Button
+            type="submit"
+            sx={{ mt: 1 }}
+            variant="contained"
+            color="secondary"
+          >
+            Submit
+          </Button>
+        </FormGroup>
+      </Box>
     </form>
   );
 };
