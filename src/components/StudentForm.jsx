@@ -3,13 +3,18 @@ import {
   Button,
   Box,
   TextField,
-  Select,
-  MenuItem,
+  
 } from "@mui/material";
 import { useState } from "react";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+
 
 const StudentForm = () => {
   const [name, setName] = useState("");
@@ -18,6 +23,19 @@ const StudentForm = () => {
   const [stclass, setStclass] = useState("");
   const [date, setDate] = useState();
   const [gender, setGender] = useState("male");
+
+ 
+    var student={
+      name:name,
+      password:password,
+      roll:roll,
+      stclass:stclass,
+      date:date,
+      gender:gender
+    }
+
+    localStorage.setItem('students', JSON.stringify(student));
+ 
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -50,6 +68,7 @@ const StudentForm = () => {
 
           <TextField
             sx={{ mt: 1 }}
+            type='number'
             label="Roll number"
             value={roll}
             onChange={(e) => {
@@ -61,6 +80,7 @@ const StudentForm = () => {
           <TextField
             sx={{ mt: 1 }}
             label="Class"
+            type='number'
             value={stclass}
             onChange={(e) => {
               setStclass(e.target.value);
@@ -102,7 +122,7 @@ const StudentForm = () => {
             />
           </LocalizationProvider>
 
-          <Select
+          {/* <Select
             label="Gender"
             sx={{ mt: 1 }}
             value={gender}
@@ -120,9 +140,25 @@ const StudentForm = () => {
             <MenuItem type="radio" name="otherr" value="other">
               Other
             </MenuItem>
-          </Select>
-
-          <Button
+          </Select> */}
+      <FormControl  label="Gender"
+            sx={{ mt: 1 }}
+            value={gender}
+            onChange={(e) => {
+              setGender(e.target.value);
+            }}>
+      <FormLabel id="demo-row-radio-buttons-group-label">Gender</FormLabel>
+      <RadioGroup
+        row
+        aria-labelledby="demo-row-radio-buttons-group-label"
+        name="row-radio-buttons-group"
+      >
+        <FormControlLabel value="female" control={<Radio />} label="Female" />
+        <FormControlLabel value="male" control={<Radio />} label="Male" />
+        <FormControlLabel value="other" control={<Radio />} label="Other" />
+      </RadioGroup>
+    </FormControl>
+     <Button
             type="submit"
             sx={{ mt: 1 }}
             variant="contained"

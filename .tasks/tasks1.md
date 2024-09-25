@@ -9,6 +9,8 @@ Student info:
 
 Submit
 handleSubmit er moddhe shobgula value jeno dekha jay.
-localstorage a jinish take save korte hobe.
+2. localstorage a jinish take save korte hobe.
+3. Eitar pore form theke value gula clear kore felte hobe.
+4. Use https://www.npmjs.com/package/react-toastify this package to show success message. After you save your data to localstorage show success message: "Student info saved successfully!"
 
 ----- Help niba, ekta tutorial dekhba @mui/form, arekta dekhba react form handling. -----
